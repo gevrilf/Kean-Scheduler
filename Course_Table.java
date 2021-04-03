@@ -3,6 +3,7 @@ package schedule;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -17,12 +18,15 @@ import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 
 public class Course_Table {
 
 	JFrame frame;
 	JPanel ctrl_panel;
+	private JButton btnDel; // Delete button variable
 	
 	
 	private void createGUI() {
@@ -61,7 +65,6 @@ public class Course_Table {
 		panel.setLayout(layout);
 		panel.add(new JButton("add"), BorderLayout.LINE_START);
 		panel.add(new JButton("save"), BorderLayout.PAGE_END);
-		panel.add(new JButton("delete"), BorderLayout.LINE_END);
 		
 		panel.setBorder(BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder(), "Kean Course Scheduler", TitledBorder.CENTER, TitledBorder.TOP));
         String[] columns = {"Monday","Tuesday","Wednesday","Thursday","Friday"};
@@ -86,6 +89,23 @@ public class Course_Table {
 				return tip;
 				}
 			};
+			
+			btnDel = new JButton("DELETE");  //Basic delete functionality based on clicking a spot on the jtable
+			btnDel.addActionListener(new ActionListener() {
+			  @Override
+			    public void actionPerformed(ActionEvent e) {
+			    int i=planner.getSelectedRow();  // get clicked row
+			    int j=planner.getSelectedColumn();  // get click column
+			    if (i>=0&&j>=0) {
+			      planner.setValueAt("", i, j); // deleted value at selected row x column
+			      JOptionPane.showMessageDialog(null, "Course Deleted");
+			    } else {
+			      JOptionPane.showMessageDialog(null, "Please Select A Class First"); // joption pane to catch errors if nothing was clicked
+			    }
+			  }
+			}
+			);
+			panel.add(btnDel, BorderLayout.LINE_END); // add delete button to the panel    	
 		
 		planner.setRowHeight(planner.getRowHeight() + 90);
 		
