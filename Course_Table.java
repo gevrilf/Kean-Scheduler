@@ -68,6 +68,7 @@ public class Course_Table {
 				String[][] data = {{"","","","",""},
 						{"","","","",""},
 						{"","","","",""},
+						{"","","","",""},
 						{"","","","",""}};
 				
 				//statement to create the table with data above
@@ -115,11 +116,34 @@ public class Course_Table {
 								 model.setValueAt(name+code+days+time+credits,0,2);
 								 model.setValueAt(name+code+days+time+credits,0,4);
 						    }
+							else if(time.equals("11:00AM -12:15P")) {
+								 model.setValueAt(name+code+days+time+credits,1,0);
+								 model.setValueAt(name+code+days+time+credits,1,2);
+								 model.setValueAt(name+code+days+time+credits,1,4);
+							}
 						    else if(time.equals("12:30PM-1:45PM")) {
 						    	 model.setValueAt(name+code+days+time+credits,2,0);
 								 model.setValueAt(name+code+days+time+credits,2,2);
 								 model.setValueAt(name+code+days+time+credits,2,4);
 						    }
+						    else if(time.equals("2:30PM-3:15PM")) {
+						    	model.setValueAt(name+code+days+time+credits,3,0);
+						    	model.setValueAt(name+code+days+time+credits,3,2);
+								model.setValueAt(name+code+days+time+credits,3,4);
+						    }
+						    else if(time.equals("4:30PM-5:45PM")) {
+						    	model.setValueAt(name+code+days+time+credits,4,0);
+						    	model.setValueAt(name+code+days+time+credits,4,2);
+						    	model.setValueAt(name+code+days+time+credits,4,4);
+						    }
+						}
+						if(days.equals("T ")) {
+							if(time.equals("12:00PM - 3:15P")) {
+								model.setValueAt(name+code+days+time+credits,2,1);
+							}
+							else if(time.equals("12:30PM - 4:00:")) {
+								model.setValueAt(name+code+days+time+credits,2,1);
+							}
 						}
 						if(days.equals("T TR")) {
 							if(time.equals("9:30AM - 10:45A")) {
@@ -133,6 +157,19 @@ public class Course_Table {
 							else if(time.equals("12:30PM-1:45PM")) {
 								model.setValueAt(name+code+days+time+credits, 2, 1);
 								model.setValueAt(name+code+days+time+credits, 2, 3);
+							}
+							else if(time.equals("2:30PM-3:15PM")) {
+								model.setValueAt(name+code+days+time+credits,3,1);
+								model.setValueAt(name+code+days+time+credits,3,3);
+							}
+							else if(time.equals("4:30PM-5:45PM")) {
+								model.setValueAt(name+code+days+time+credits,4,1);
+								model.setValueAt(name+code+days+time+credits,4,3);
+							}
+						}
+						if(days.equals("TR")) {
+							if(time.equals("12:00PM - 3:15P")) {
+								model.setValueAt(name+code+days+time+credits,2,3);
 							}
 						}
 					}  
