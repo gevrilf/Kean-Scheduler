@@ -49,7 +49,6 @@ public class Table {
 	static final String USER = "sql5407518";
 	static final String PSS = "rmZ9NDyfU2";
 	
-	
 	/**
 	 * Create the application.
 	 */
@@ -136,7 +135,6 @@ public class Table {
 						sch.model.setValueAt(r[i][j], i, j);
 					}
 				}
-				
 				//Get course that user selected
 				String name, days, time, credits, code;
 				int i=jT_disp.getSelectedRow();
@@ -148,12 +146,12 @@ public class Table {
 				code = (String) jT_disp.getValueAt(i,4);
 				//Yasmeen's add code
 				if(days.equals("MWF")) {
-					if(time.equals("9:30AM-10:45A")){
+					if(time.equals("9:30AM-10:45AM")){
 						sch.model.setValueAt(name+code+days+time+credits,0,0);
 						sch.model.setValueAt(name+code+days+time+credits,0,2);
 						sch.model.setValueAt(name+code+days+time+credits,0,4);
 				    }
-					else if(time.equals("11:00AM-12:15P")) {
+					else if(time.equals("11:00AM-12:15PM")) {
 						sch.model.setValueAt(name+code+days+time+credits,1,0);
 						sch.model.setValueAt(name+code+days+time+credits,1,2);
 						sch.model.setValueAt(name+code+days+time+credits,1,4);
@@ -175,19 +173,19 @@ public class Table {
 				    }
 				}
 				if(days.equals("T")) {
-					if(time.equals("12:00PM-3:15P")) {
+					if(time.equals("12:00PM-3:15PM")) {
 						sch.model.setValueAt(name+code+days+time+credits,2,1);
 					}
-					else if(time.equals("12:30PM-4:00")) {
+					else if(time.equals("12:30PM-4:00PM")) {
 						sch.model.setValueAt(name+code+days+time+credits,2,1);
 					}
 				}
 				if(days.equals("TTR")) {
-					if(time.equals("9:30AM-10:45A")) {
+					if(time.equals("9:30AM-10:45AM")) {
 						sch.model.setValueAt(name+code+days+time+credits, 0, 1);
 						sch.model.setValueAt(name+code+days+time+credits, 0, 3);
 					}
-					else if(time.equals("11:00AM-12:15P")) {
+					else if(time.equals("11:00AM-12:15PM")) {
 						sch.model.setValueAt(name+code+days+time+credits, 1, 1);
 						sch.model.setValueAt(name+code+days+time+credits, 1, 3);
 					}
@@ -205,7 +203,7 @@ public class Table {
 					}
 				}
 				if(days.equals("TR")) {
-					if(time.equals("12:00PM-3:15P")) {
+					if(time.equals("12:00PM-3:15PM")) {
 						sch.model.setValueAt(name+code+days+time+credits,2,3);
 					}
 				}
@@ -254,7 +252,6 @@ public class Table {
 		backBut.setBounds(38, 283, 89, 23);
 		panel.add(backBut);
 		sort();
-		
 		
 	}
 }

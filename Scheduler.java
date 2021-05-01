@@ -16,6 +16,7 @@ import javax.swing.JScrollPane;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 
 public class Scheduler {
@@ -122,8 +123,23 @@ public class Scheduler {
 		panel.add(scrollPane);
 		
 		
+		
+		
 		//initialize jtable with the data we have set
-		table = new JTable();
+		table = new JTable() {
+			public String getToolTipText(MouseEvent e) {
+				String  tip = null;
+				java.awt.Point p = e.getPoint();
+				int rowIndex = rowAtPoint(p);
+				int colIndex = columnAtPoint(p);
+				
+				try{
+					tip = getValueAt(rowIndex,colIndex).toString();
+				} catch (RuntimeException e1) {
+				}
+				return tip;
+				}
+		};
 		
 		//model variable is used to modify jtable
 		model = new DefaultTableModel();
@@ -146,7 +162,6 @@ public class Scheduler {
 		table.setModel(model);
 		//the scroll area, initialize view to the jtable
 		scrollPane.setViewportView(table);
-		
 		
 	}
 }
