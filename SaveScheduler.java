@@ -64,9 +64,16 @@ public class Scheduler extends JFrame {
 	            new FileInputStream(file));
 	            Vector rowData = (Vector)in.readObject();
 	            Iterator itr = rowData.iterator();
+	            model = new DefaultTableModel();
+	            Object[] column = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+	            Object[] row = new Object[0];
+	            model.setColumnIdentifiers(column);
+	            table.setRowHeight(65);
 	            while(itr.hasNext()) {
 	                model.addRow((Vector) itr.next());
+	                table.setModel(model);
 	            }
+	            
 	            in.close();
 	        }
 	        catch (Exception ex) {
