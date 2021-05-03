@@ -242,7 +242,6 @@ public class Table {
 						sch.model.setValueAt(r[i][j], i, j);
 					}
 				}
-				
 				// go back to scheduler
 				sch.frame.show();
 				//close current and delete frame

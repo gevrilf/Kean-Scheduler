@@ -15,15 +15,72 @@ import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
+
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.Iterator;
+import java.util.Vector;
 
-public class Scheduler {
+public class Scheduler extends JFrame{
 
 	public JFrame frame;
 	DefaultTableModel model;
 	private JTable table;
+	private JFileChooser myJFileChooser = new JFileChooser(new File("."));
+	 private void saveTable() {
+	        if (myJFileChooser.showSaveDialog(this) ==
+	                JFileChooser.APPROVE_OPTION ) {
+	            saveTable(myJFileChooser.getSelectedFile());
+	        }
+	    }
+	     
+	    private void saveTable(File file) {
+	        try {
+	            ObjectOutputStream out = new ObjectOutputStream(
+	                    new FileOutputStream(file));
+	                out.writeObject(model.getDataVector());
+	                out.close();
+	            }
+	            catch (Exception ex) {
+	                ex.printStackTrace();
+	            }
+	    }
+	     
+	    private void loadTable() {
+	        if (myJFileChooser.showOpenDialog(this) ==
+	                JFileChooser.APPROVE_OPTION )
+	            loadTable(myJFileChooser.getSelectedFile());
+	    }
+	     
+	    private void loadTable(File file) {
+	        try {
+	            ObjectInputStream in = new ObjectInputStream(
+	            new FileInputStream(file));
+	            Vector rowData = (Vector)in.readObject();
+	            Iterator itr = rowData.iterator();
+	            model = new DefaultTableModel();
+	            Object[] column = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+	            Object[] row = new Object[0];
+	            model.setColumnIdentifiers(column);
+	            table.setRowHeight(65);
+	            while(itr.hasNext()) {
+	                model.addRow((Vector) itr.next());
+	                table.setModel(model);
+	            }
+	            
+	            in.close();
+	        }
+	        catch (Exception ex) {
+	            ex.printStackTrace();
+	        }
+	    }
 
 	/**
 	 * Launch the application.
@@ -94,13 +151,20 @@ public class Scheduler {
 		//delete button
 		JButton delButton = new JButton("Delete");
 		delButton.addActionListener(new ActionListener() {
-			
 			//will delete any cell that is selected by setting the cell value to blank ("")
 			public void actionPerformed(ActionEvent e) {
 				int i=table.getSelectedRow();
 				int j=table.getSelectedColumn();
+				String value = (String) model.getValueAt(i, j);
+				String test = "";
 				if(i>=0&&j>=0) {
-					model.setValueAt("",i,j);
+					for(int g=0; g<6; g++) {
+						if(model.getValueAt(i, g)!=null) {
+							test = (String) model.getValueAt(i, g);
+							if(test.equals(value))
+								model.setValueAt("", i, g);
+						}
+					}
 					JOptionPane.showMessageDialog(null, "Course Deleted");
 				}else {
 					JOptionPane.showMessageDialog(null, "Please Select A Class First");
@@ -115,15 +179,31 @@ public class Scheduler {
 		saveButton.setBounds(10, 169, 89, 23);
 		panel.add(saveButton);
 		
+		saveButton.addActionListener(new ActionListener() {
+	            public void actionPerformed(ActionEvent e) {
+	                saveTable();
+	            }
+	        });
+		
+		
+		//load button
+		JButton loadButton = new JButton("Load");
+		loadButton.setBounds(10,200,89, 23);
+		panel.add(loadButton);
+		
+		loadButton.addActionListener(new ActionListener() {
+	            public void actionPerformed(ActionEvent e) {
+	                loadTable();
+	            }
+	        });
+		
+		
 		
 		//Add a scroll pane so that you can scroll on the jframe table
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(104, 22, 534, 420);
 		//add the scroll pane to the panel
 		panel.add(scrollPane);
-		
-		
-		
 		
 		//initialize jtable with the data we have set
 		table = new JTable() {
