@@ -1,2 +1,7 @@
 # Kean-Scheduler
-This will be where we share our code and other files
+Program files:
+course.java
+Scheduler.java
+Table.java
+
+
